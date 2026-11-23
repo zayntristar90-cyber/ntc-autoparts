@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NTC Auto Parts</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#d8141f">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NTC Auto Parts">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<style>
+:root{--red:#d8141f;--red2:#b30f19;--bg:#f6f4f5;--card:#fff;--ink:#1d1a1b;--mut:#7a7274;--line:#e6dfe1;--tint:#fde8ea;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171314;--card:#231d1f;--ink:#f3eced;--mut:#a89da0;--line:#38302f;--tint:#3a1a1d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171314;--card:#231d1f;--ink:#f3eced;--mut:#a89da0;--line:#38302f;--tint:#3a1a1d;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font:15px/1.4 "Trebuchet MS","Segoe UI",system-ui,sans-serif;display:flex;justify-content:center}
+#app{width:100%;max-width:430px;height:100%;display:flex;flex-direction:column;position:relative;background:var(--bg);overflow:hidden}
+header{background:var(--red);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;min-height:56px;border-radius:0 0 22px 22px;flex:none}
+header .logo{font:900 26px/1 "Arial Black",Impact,sans-serif;letter-spacing:-1px;text-align:center}
+header .logo small{display:block;font:700 8px/1 Arial,sans-serif;letter-spacing:1px}
+header .t{font-weight:600;font-size:17px;flex:1;text-align:center}
+.ib{background:none;border:0;color:#fff;font-size:22px;width:40px;height:40px;position:relative;cursor:pointer}
+.ib:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
+.badge{position:absolute;top:2px;right:2px;background:#fff;color:var(--red);font:700 11px/16px sans-serif;border-radius:8px;min-width:16px;text-align:center}
+main{flex:1;overflow-y:auto;padding:14px 14px 24px}
+h2{font:italic 800 15px/1.2 "Arial Black",sans-serif;color:var(--red);margin:14px 0 8px}
+.banner{height:150px;border-radius:14px;display:flex;align-items:center;justify-content:space-between;color:#fff;padding:0 8px;font:900 22px/1.1 "Arial Black",sans-serif;background:linear-gradient(120deg,#7d0b12,var(--red));position:relative}
+.banner span{flex:1;text-align:center;padding:0 6px}
+.banner button{background:#0004;border:0;color:#fff;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer}
+.hs{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.slider{position:relative;overflow:hidden;border-radius:14px;height:150px;touch-action:pan-y;user-select:none}
+.trk{display:flex;height:100%;transition:transform .45s ease}
+.sl{flex:none;width:100%;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 44px}
+.sl b{display:block;font:900 24px/1.1 "Arial Black",sans-serif}.sl small{opacity:.9}
+.slider .pv,.slider .nx{position:absolute;top:50%;transform:translateY(-50%);background:#0004;border:0;color:#fff;border-radius:50%;width:30px;height:30px;font-size:18px;cursor:pointer}
+.slider .pv{left:8px}.slider .nx{right:8px}
+.dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px}
+.dots i{width:7px;height:7px;border-radius:4px;background:#fff6;transition:width .2s}.dots i.on{width:18px;background:#fff}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.car{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font:inherit;font-size:12px;color:inherit;text-align:center;cursor:pointer}
+.car svg{width:100%;height:auto;max-width:130px}
+@media(prefers-reduced-motion:reduce){.trk{transition:none}}
+.chip{flex:none;width:210px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;gap:10px;align-items:center;cursor:pointer;text-align:left;color:inherit;font:inherit}
+.ph{width:46px;height:46px;border-radius:8px;background:var(--tint);color:var(--red);display:grid;place-items:center;font-size:22px;flex:none}
+.pn{font-weight:800}.br{font-size:12px;color:var(--mut)}.pr{color:var(--red);font-weight:800}
+.tabs{display:flex;background:var(--card);border-radius:30px;padding:4px;margin:14px 0 10px;border:1px solid var(--line)}
+.tabs button{flex:1;border:0;background:none;color:var(--mut);font:italic 700 14px sans-serif;padding:10px 4px;border-radius:24px;cursor:pointer}
+.tabs button.on{background:var(--red);color:#fff}
+.in{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 12px;margin-bottom:12px}
+.in input{flex:1;border:0;background:none;color:var(--ink);font:inherit;padding:13px 0;min-width:0}
+.btn{display:block;width:100%;background:var(--red);color:#fff;border:0;border-radius:12px;padding:14px;font:700 16px sans-serif;cursor:pointer}
+.btn:active{background:var(--red2)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:11px;text-align:center;padding:4px;cursor:pointer;color:inherit;font-family:inherit}
+.tile b{font-size:26px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;position:relative}
+.row .top{display:flex;justify-content:space-between;gap:8px}
+.qty{display:inline-flex;align-items:center;background:var(--bg);border-radius:8px}
+.qty button{width:32px;height:32px;border:0;background:none;color:var(--red);font:700 18px sans-serif;cursor:pointer}
+.qty span{min-width:28px;text-align:center;font-weight:700}
+.sm{background:var(--red);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-weight:600;cursor:pointer}
+.act{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.upd{background:var(--tint);color:var(--red);border-radius:10px;padding:10px;text-align:center;font-style:italic;margin-bottom:12px}
+.fit{list-style:none;padding:0;font-size:13px;color:var(--mut);display:grid;gap:4px;margin-top:8px}
+.bar{display:flex;gap:10px;align-items:center;padding:12px 14px;background:var(--card);border-top:1px solid var(--line);flex:none}
+.bar .btn{flex:1}
+.scrim{position:absolute;inset:0;background:#0007;z-index:5}
+.drawer{position:absolute;top:0;bottom:0;left:0;width:80%;background:var(--card);z-index:6;padding:calc(18px + env(safe-area-inset-top,0px)) 14px 18px;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+.drawer .me{font:800 17px sans-serif;margin:6px 4px 14px}
+.drawer .ver{align-self:flex-start;font-size:11px;color:var(--red);border:1px solid var(--red);border-radius:12px;padding:2px 8px}
+.mi{display:flex;justify-content:space-between;background:none;border:0;color:var(--ink);font:inherit;padding:13px 12px;border-radius:12px;cursor:pointer;text-align:left}
+.mi.on{background:var(--red);color:#fff}
+.mi.out{border:1px solid var(--red);color:var(--red);margin-top:auto}
+.dlg{position:absolute;z-index:7;left:10%;right:10%;top:35%;background:var(--card);border-radius:16px;padding:18px;text-align:center}
+.dlg button{display:block;width:100%;background:none;border:0;border-top:1px solid var(--line);color:var(--ink);font:inherit;padding:14px;cursor:pointer;margin-top:6px}
+.out{background:var(--red);color:#fff;border-radius:14px;padding:14px;margin-bottom:10px;text-align:center}
+.out small{opacity:.85}
+.ot{display:flex;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.ot button{flex:1;background:none;border:0;border-bottom:3px solid transparent;padding:12px;color:var(--mut);font:600 15px sans-serif;cursor:pointer}
+.ot button.on{color:var(--red);border-color:var(--red)}
+.empty{text-align:center;color:var(--mut);padding:50px 10px}
+.toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:9}
+[dir=rtl]{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif}
+@media(prefers-reduced-motion:no-preference){.drawer{animation:sl .2s}@keyframes sl{from{transform:translateX(-100%)}}}
+.lnk{background:none;border:0;color:var(--red);font:600 13px sans-serif;cursor:pointer;text-decoration:underline}
+.res{width:100%;display:flex;justify-content:space-between;align-items:center;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.phd{background:var(--red);color:#fff;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;gap:8px;padding:10px 12px;margin:-12px -12px 8px}
+.phd i{font:italic 900 22px "Arial Black",sans-serif}.phd small{display:block;font-size:10px}
+.phr{text-align:right}.phr b{display:block;font:800 18px "Arial Black",sans-serif;letter-spacing:2px}.phr span{font:700 11px sans-serif}
+.pad{width:100%;height:auto;display:block}
+.shr{position:absolute;right:12px;bottom:12px;background:none;border:0;cursor:pointer;color:var(--red);padding:6px}
+.cr{display:flex;gap:10px;align-items:center;margin:8px 0}.cr a{color:var(--red);text-decoration:none}
+.soc{display:flex;justify-content:space-around;margin-top:12px}.soc a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#fff;font:800 20px sans-serif;text-decoration:none}
+.dev{text-align:right;color:var(--mut);margin:14px 4px;font-size:13px}.dev b{color:var(--red);font:italic 900 18px sans-serif}
+.dang{display:flex;gap:8px;justify-content:center;width:100%;background:none;border:2px solid var(--tint);border-radius:14px;padding:20px;color:var(--red);font:700 15px sans-serif;cursor:pointer;margin-top:14px}
+.oi{font-size:30px}
+header{background:linear-gradient(135deg,#e5202c,#b30f19)}
+.row,.chip,.tile,.car{box-shadow:0 1px 3px #0000000f}
+@media(hover:hover){.chip,.tile,.car,.res{transition:transform .2s,box-shadow .2s}.chip:hover,.tile:hover,.car:hover,.res:hover{transform:translateY(-3px);box-shadow:0 8px 18px #d8141f26}.btn,.sm{transition:filter .15s}.btn:hover,.sm:hover{filter:brightness(1.1)}}
+.btn:active,.sm:active{transform:scale(.97)}
+.wrap{max-width:1180px;margin:0 auto}.wrap.n{max-width:760px}
+.plist{display:grid;gap:10px}.plist .empty{grid-column:1/-1}
+.abt,.ogrid{display:grid;gap:12px;margin-bottom:12px}
+.pkmap{width:100%;height:auto;max-height:320px}.pin{cursor:pointer;outline:none}.pin:focus-visible circle:nth-child(2){stroke:#ffbf47}
+.pr1{fill:var(--red);opacity:.35;animation:pulse 1.8s infinite;transform-box:fill-box;transform-origin:center}
+.out.hl{outline:3px solid #ffbf47}
+.mapb{display:inline-block;margin-top:10px;background:#fff;color:var(--red);padding:8px 14px;border-radius:20px;font-weight:700;text-decoration:none;font-size:13px}
+.shr{display:flex;gap:10px;align-items:center}.shr>*{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--red)}.shr .wa{background:#25d366;color:#fff;border-color:#25d366}
+.nav,.lng{display:none}
+main.pg .wrap{animation:fade .3s}
+.pg .tile,.pg .car,.pg .row,.pg .out,.pg .chip{animation:up .4s both}
+.toast{animation:fade .25s}
+@media(max-width:899px){header.hasT .logo{display:none}}
+@media(min-width:640px){#app{max-width:none}main{padding:20px 24px 32px}.grid{grid-template-columns:repeat(4,1fr)}.grid2{grid-template-columns:repeat(3,1fr)}.plist,.ogrid{grid-template-columns:repeat(2,1fr)}.slider{height:220px}.sl b{font-size:34px}}
+@media(min-width:900px){
+header{border-radius:0;padding:0 max(24px,calc((100vw - 1180px)/2));min-height:68px;gap:20px;justify-content:flex-start;box-shadow:0 2px 10px #0003}
+header .logo{font-size:30px;cursor:pointer}header .mn,header .t{display:none}
+.nav{display:flex;gap:4px;flex:1;margin-left:20px}
+.nav button{background:none;border:0;color:#fffd;font:600 15px sans-serif;padding:10px 14px;border-radius:20px;cursor:pointer}.nav button:hover{background:#fff2}.nav button.on{background:#fff;color:var(--red)}
+.lng{display:block;background:#fff2;border:0;color:#fff;border-radius:20px;padding:8px 14px;font:600 13px sans-serif;cursor:pointer}
+.grid{grid-template-columns:repeat(6,1fr)}.grid2{grid-template-columns:repeat(4,1fr)}.ogrid{grid-template-columns:repeat(3,1fr)}.abt{grid-template-columns:1fr 1fr}
+.slider{height:300px;border-radius:20px}.sl b{font-size:44px}.sl small{font-size:18px}
+.chip{width:280px}.ph{width:56px;height:56px}
+.wrap>.in,.wrap>.btn,.wrap>#res,.tabs{max-width:640px;margin-left:auto;margin-right:auto}
+.bar{justify-content:center}.bar .btn{flex:0 1 360px}
+h2{font-size:18px}.drawer{width:340px}}
+#boot{position:fixed;inset:0;z-index:100;background:#14090a;color:#fff;transition:opacity .5s}#boot.out{opacity:0;pointer-events:none}
+.bs,.ba{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
+.bs{background:radial-gradient(circle at 50% 40%,#e5202c,#8f0a12)}.bs.gone{opacity:0;visibility:hidden}
+.bl{text-align:center}.wheel{width:96px;height:96px;animation:spin 1.6s cubic-bezier(.5,0,.3,1) infinite}
+.lg{font:900 64px/1 "Arial Black",Impact,sans-serif;letter-spacing:-2px;margin-top:14px;animation:up .7s both}
+.ls{font:700 14px sans-serif;letter-spacing:6px;margin-top:6px;animation:up .7s .2s both}
+.ld{position:absolute;bottom:calc(60px + env(safe-area-inset-bottom,0px));width:140px;height:4px;background:#fff4;border-radius:2px;overflow:hidden}.ld i{display:block;height:100%;background:#fff;animation:fill 2.4s ease-out forwards}
+.ba{animation:fade .5s}.ba[hidden]{display:none}
+.pb{position:absolute;top:calc(10px + env(safe-area-inset-top,0px));left:14px;right:14px;height:4px;background:#fff3;border-radius:2px;overflow:hidden;z-index:2}.pb i{display:block;height:100%;width:0;background:#fff}
+.skip{position:absolute;top:calc(24px + env(safe-area-inset-top,0px));right:14px;z-index:2;background:#0008;color:#fff;border:1px solid #fff5;border-radius:20px;padding:8px 16px;font:600 14px sans-serif;cursor:pointer}
+.poster{position:relative;width:100%;max-width:460px;height:100%;background:linear-gradient(160deg,#c3121c,#6d070d 70%);overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:70px 20px calc(30px + env(safe-area-inset-bottom,0px));text-align:center}
+.pl{font:900 30px/1 "Arial Black",sans-serif}.pl small{display:block;font:700 9px sans-serif;letter-spacing:2px}
+.pa{font:italic 900 44px/1 "Arial Black",sans-serif;margin-top:16px}.pa small{display:block;font:italic 700 14px sans-serif}
+.pd1{font:italic 900 clamp(54px,16vw,84px)/.95 "Arial Black",Impact,sans-serif;color:#ffe033;text-shadow:3px 3px 0 #000;margin-top:14px;transform:rotate(-4deg);animation:pop .8s .3s both}
+.pd2{background:#ffe033;color:#111;font:italic 800 18px sans-serif;padding:4px 16px;margin-top:8px;transform:rotate(-2deg)}
+.poster svg{width:80%;max-height:30%;margin-top:auto;animation:up .8s .5s both}
+.pu{background:#0007;border:2px solid #ffe033;border-radius:10px;padding:10px 14px;margin-top:14px;font:600 17px/1.8 "Noto Nastaliq Urdu","Jameel Noori Nastaleeq",serif}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}@keyframes fade{from{opacity:0}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes fill{from{width:0}to{width:100%}}@keyframes pop{0%{opacity:0;transform:scale(.6) rotate(-4deg)}70%{transform:scale(1.08) rotate(-4deg)}}@keyframes pulse{to{transform:scale(2.4);opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
+.ph i{display:none}.ph u{text-decoration:none}
+.pills,.inv{display:none}
+.cg{display:grid;gap:12px}
+.ci .cl,.ci .cl2{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px}.ci .cl .pr{margin-left:auto}
+.rm{background:none;border:1px solid #f3b7bc;color:var(--red);border-radius:20px;padding:8px 14px;font:700 13px sans-serif;cursor:pointer}
+.qb{width:24px;height:24px;border:1px solid var(--line);background:var(--card);color:var(--red);border-radius:6px;font-weight:700;cursor:pointer;vertical-align:middle}
+.pay h3{color:var(--red);font:italic 800 17px "Arial Black",sans-serif;margin-bottom:10px}
+.pl2{display:flex;justify-content:space-between;padding:8px 0}.pl2.gt{border-top:2px dashed var(--line);margin-top:6px;padding-top:12px;margin-bottom:14px}
+.shr .wa{width:52px;height:52px}
+@media(min-width:900px){
+header{position:relative;min-height:92px;border-radius:0 0 30px 30px;justify-content:space-between;background-image:repeating-linear-gradient(115deg,#ffffff14 0 2px,transparent 2px 16px),linear-gradient(135deg,#b30f19,#f23a4b)}
+header .mn{display:block}.nav,.lng,header .t{display:none}header.hasT .logo{display:block}
+header .logo{font-size:36px;position:absolute;left:50%;transform:translateX(-50%);text-align:center}
+.pills{display:flex;justify-content:center;gap:12px;margin:16px 0 4px;flex-wrap:wrap}.pills span{background:var(--card);border-radius:20px;padding:8px 16px;font:700 13px sans-serif;box-shadow:0 2px 8px #0001}
+h2{font-size:22px;margin:26px 0 12px}h2::before{content:"";display:inline-block;width:4px;height:1em;background:var(--red);margin-right:10px;transform:skewX(-15deg);vertical-align:-2px}
+.slider{height:260px;border-radius:14px;box-shadow:0 14px 30px #b30f1940}
+.sl{justify-content:flex-start;text-align:left;padding:0 70px}.sl b{font:italic 900 64px/1 "Arial Black",sans-serif}
+.chip{width:340px;gap:14px;padding:12px;border-radius:16px}.chip .pn{font-size:19px}
+.chip .pr{background:var(--tint);padding:3px 12px;border-radius:14px;display:inline-block;font-size:13px;margin-top:6px}
+.ph{width:92px;height:104px;border-radius:10px;background:linear-gradient(#fff,#ececec);border:1px solid var(--line);position:relative;overflow:hidden}
+.ph u{display:none}.ph i{display:block;position:absolute;top:0;left:0;right:0;background:var(--red);color:#fff;font:700 10px/1.7 sans-serif;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.inv{display:block}.cg{grid-template-columns:1fr 1fr;align-items:start}.wrap.n{max-width:1080px}
+.dg{display:grid;grid-template-columns:1fr 1fr;padding:0!important;overflow:hidden}.dg .dl{padding:14px;border-right:1px solid var(--line)}.dg .dr{padding:14px 14px 64px}.dg .phd{margin:0 0 10px;border-radius:10px}}
+</style>
+</head>
+<body>
+<div id="boot">
+<section class="bs" id="bs"><div class="bl"><svg class="wheel" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="none" stroke="#fff" stroke-width="8"/><circle cx="50" cy="50" r="12" fill="#fff"/><g stroke="#fff" stroke-width="6" stroke-linecap="round"><path d="M50 38V10M50 62v28M38 50H10M62 50h28M41 41L22 22M59 59l19 19M59 41l19-19M41 59L22 78"/></g></svg><div class="lg">NTC</div><div class="ls">AUTO PARTS</div></div><div class="ld"><i></i></div></section>
+<section class="ba" id="ba" hidden><div class="pb"><i id="pbi"></i></div><button class="skip" id="skip">Skip</button>
+<div class="poster"><div class="pl">NTC<small>AUTO PARTS</small></div><div class="pa">ASUKI<small>Brake Parts</small></div><div class="pd1">PRICE<br>DOWN</div><div class="pd2">on Selected Products</div>
+<svg viewBox="0 0 260 130" aria-hidden="true"><g transform="rotate(-8 130 65)"><path d="M20 90q0-14 14-14h150q20 0 30 12l10 18q-6 12-20 12H34q-14 0-14-14z" fill="#4d4d4d" stroke="#111" stroke-width="3"/><path d="M20 70q0-14 14-14h150q20 0 30 12l10 18q-6 12-20 12H34q-14 0-14-14z" fill="#777" stroke="#111" stroke-width="3"/><rect x="150" y="62" width="46" height="24" fill="#ffd200"/><text x="173" y="79" font-size="13" font-weight="800" text-anchor="middle" fill="#111">A-76N</text></g></svg>
+<div class="pu" dir="rtl">مزید معلومات کے لیے آپ ایپلیکیشن چیک کریں۔</div></div></section></div>
+<div id="app"></div>
+<script>
+// ---------- Data (replace with your API) ----------
+// make: [brand colour, "model:body"] body = h hatch, s sedan, u suv, p pickup, v van, t truck
+const D={
+Suzuki:["#d62027","Alto HA12 98-12:h","Alto HA24 04-09:h","Alto HA25 09-14:h","Alto HA37/HA97S 21-On:h","Alto 660CC 88-98:h","Alto FX SS40 79-84:h","Alto Lapin HE22S 08-15:h","Cultus AVK310 17-On:h","Cultus 2000-17:h","Mehran 88-98:h","Wagon R:h","Swift 2010-21:h","Liana:s","Baleno:s","Bolan Carry:v","Ravi Pickup:p","Jimny:u","Vitara 3 Door SE413 88-98:u","Escudo 3 Door TA01R 88-97:u","Escudo 5 Door TA01W 88-97:u","Vitara:u"],
+Toyota:["#eb0a1e","Corolla 2014-On:s","Corolla 2002-08:s","Yaris:s","Camry:s","Vitz:h","Passo:h","Aqua:h","Prius:h","Hilux 2WD:p","Hilux Revo:p","Fortuner:u","Land Cruiser Prado:u","Land Cruiser V8:u","Rush:u","Corolla Cross:u","Hiace:v"],
+Honda:["#2a6ebb","City 2009-21:s","City 2021-On:s","Civic 2016-On:s","Civic 2006-12:s","Accord:s","Fit:h","N-One:h","BR-V:u","HR-V:u","Vezel:u","Freed:v"],
+Daihatsu:["#c4161c","Coure L500:h","Coure L251:h","Cuore HA36 19-On:h","Mira:h","Charade:h","Move:h","Terios:u","Hijet:v"],
+Adam:["#e0a800","Revo:h","Revo M:h"],
+"Arcfox | BAIC":["#6b7280","Alpha S:s","Alpha T:u","Lite:h"],
+Audi:["#9ca3af","A3:s","A4:s","A6:s","Q2:u","Q3:u","Q5:u","Q7:u"],
+BAIC:["#1f4f9a","BJ40:u","X25:u","X55:u","D20:h","EC3:h"],
+"BAW (BAIC)":["#b91c1c","BAW Pickup:p","BAW Truck:t","BAW Van:v"],
+BMW:["#1c69d4","1 Series:h","3 Series:s","5 Series:s","7 Series:s","X1:u","X3:u","X5:u"],
+BYD:["#374151","Atto 3:u","Sealion 6:u","Tang:u","Seal:s","Dolphin:h"],
+Changan:["#1d4ed8","Alsvin:s","Eado:s","CS35:u","Oshan X7:u","Karvaan:v","Honor:v","Master:v"],
+Chery:["#c2410c","Tiggo 4 Pro:u","Tiggo 7 Pro:u","Tiggo 8 Pro:u","Arrizo 6:s","QQ:h"],
+Hyundai:["#0f4c81","Elantra:s","Sonata:s","Accent:s","Tucson:u","Santa Fe:u","Porter:t","Shehzore:t"],
+Kia:["#b91c1c","Picanto:h","Cerato:s","Sportage:u","Stonic:u","Sorento:u","Carnival:v"],
+Nissan:["#7f1d1d","Sunny:s","Dayz:h","Note:h","Juke:u","X-Trail:u","Patrol:u","Clipper:v"],
+Mitsubishi:["#dc2626","Lancer:s","Mirage:h","eK Wagon:h","Pajero:u","Outlander:u","L200:p"],
+Mazda:["#7c2d12","Mazda 3:s","Mazda 6:s","Demio:h","CX-5:u"],
+MG:["#be123c","MG 5:s","MG 4 EV:h","ZS:u","HS:u"],
+Proton:["#1e3a8a","Saga:s","Persona:s","X50:u","X70:u"],
+DFSK:["#0e7490","Glory 500:u","Glory 580:u","C37:v","Prince:v"],
+FAW:["#1d4ed8","V2:h","Sirius S80:s","X-PV:v","Carrier:p"],
+Isuzu:["#a21caf","D-Max:p","Mu-X:u","NKR:t","NPR:t"],
+Mercedes:["#4b5563","A-Class:h","C-Class:s","E-Class:s","GLC:u"]};
+const MAKES={},MT={},COL={};
+for(const m in D){COL[m]=D[m][0];MAKES[m]=D[m].slice(1).map(s=>{const[n,t]=s.split(":");MT[m+"|"+n]=t;return n})}
+const BODY={h:["M6 40V31q0-4 5-5l16-3 10-12q2-3 6-3h28q4 0 7 3l12 12 15 3q5 1 5 5v9z","M37 24l8-10h31l9 10z"],
+s:["M5 40V32q0-4 5-5l20-4 12-11q2-2 6-2h26q4 0 7 2l13 11 18 4q4 1 4 5v8z","M33 23l10-10h30l12 10z"],
+u:["M6 40V28q0-4 4-5l8-2 6-12q2-3 6-3h56q4 0 6 3l6 12 10 3q4 1 4 5v11z","M24 21l5-9h56l5 9z"],
+p:["M4 40V30q0-4 4-4h18l8-13q2-3 6-3h24q4 0 6 3l4 13h42q4 0 4 4v10z","M30 26l7-11h24l4 11z"],
+v:["M5 40V14q0-4 4-4h76q6 0 9 5l14 14q4 3 4 8v3z","M10 14h60l10 12H10z"],
+t:["M4 40V24q0-4 4-4h18l9 10h12V40zM50 8h64v32H50z","M10 24h14l6 8H10z"]};
+const carSVG=(t,c)=>{const b=BODY[t]||BODY.h;return `<svg viewBox="0 0 120 56" role="img" aria-label="Car"><ellipse cx="60" cy="52" rx="50" ry="3" fill="#0002"/><path d="${b[0]}" fill="${c}"/><path d="${b[1]}" fill="#fff" opacity=".75"/><g fill="#222"><circle cx="28" cy="42" r="9"/><circle cx="92" cy="42" r="9"/></g><g fill="#bbb"><circle cx="28" cy="42" r="4"/><circle cx="92" cy="42" r="4"/></g></svg>`};
+const CATS=[["Brake Pad","🛞"],["Brake Shoe","🛑"],["Kit BMC","🔧"],["BMC Washer Kit","🔘"],["Brake Booster","🔋"],["Brake Master Cylinder","🛢️"],["Clutch Lower Cylinder","🔩"],["Clutch Upper Cylinder","🔩"],["Clutch Release Bearing","🔄"],["Kit CMC","🔧"],["CMC Washer Kit","🔘"],["Kit COC","🔧"],["CDC Washer Kit","🔘"],["Kit SMC","🔧"],["Disc Brake Kit","💿"],["Wheel Cylinder","🛞"],["Wheel Washer","⚫"],["Plug Washer","⚪"],["Pin Boot","🧤"],["Distributor Cap","🧢"],["Distributor Rotor","🌀"],["Ignition Coil","⚡"],["Plug Wire Sports","🔌"],["Coil Wire Sports","🪢"],["Timing Chain","⛓️"],["Timing Tensioner","🗜️"],["Timing Guide","📏"],["Propagation Kit","📦"],["Booster Washer","⚙️"],["O-Ring","⭕"],["Plug Wire","🔌"]];
+const P=[
+{no:"A-125 AD",br:"ASUKI ADVANCED",pr:2600,cat:"Brake Pad",make:"Suzuki",model:"Alto HA12 98-12",desc:"Made in China, Brake Pad (Front)",fit:["Alto VXR (HA12) 98-12","Cultus Celerio (AVK310) 17-On","Kei (HN11S) 98-01","Alto (HA24) 04-09","MR Wagon (MF21S) 01-06"]},
+{no:"A-273N",br:"ASUKI",pr:2400,cat:"Brake Pad",make:"Suzuki",model:"Vitara 3 Door SE413 88-98",desc:"Made in China, Brake Pad (Front)",fit:["VITARA 3 DOOR (SE413) 88-98","ESCUDO 3 DOOR (TA01R) 88-97","ESCUDO 5 DOOR (TA01W) 88-97"],t:"SUZUKI VITARA, ESCUDO FRONT"},
+{no:"A-125N",br:"ASUKI",pr:2465,cat:"Brake Pad",make:"Suzuki",model:"Alto HA12 98-12",desc:"Brake Pad (Front)",fit:["Alto VXR (HA12) 98-12"]},
+{no:"UF-9027 | 125",br:"ULTIMA",pr:2300,cat:"Brake Pad",make:"Suzuki",model:"Alto HA12 98-12",desc:"Brake Pad (Front)",fit:["Alto VXR (HA12) 98-12"]},
+{no:"A-5083MN",br:"ASUKI",pr:2800,cat:"Brake Pad",make:"Toyota",model:"Corolla 2014-On",desc:"Brake Pad (Front)",fit:["Corolla 2014-On"]},
+{no:"A-4057MN",br:"ASUKI",pr:4300,cat:"Brake Pad",make:"Honda",model:"Civic 2016-On",desc:"Brake Pad (Rear)",fit:["Civic 2016-On"]},
+{no:"A-2399",br:"ASUKI",pr:3200,cat:"Brake Shoe",make:"Toyota",model:"Hilux 2WD",desc:"Brake Shoe (Rear)",fit:["Hilux 2WD"]},
+{no:"UFM-9016",br:"ULTIMA",pr:5400,cat:"Kit BMC",make:"Toyota",model:"Land Cruiser Prado",desc:"Master Cylinder Kit",fit:["Land Cruiser Prado"]},
+{no:"UFT-7010XX",br:"ULTIMA",pr:900,cat:"O-Ring",make:"Daihatsu",model:"Coure L500",desc:"O-Ring set",fit:["Coure (L500) 94-04"]},
+{no:"A-344N/340BN",br:"ASUKI",pr:2500,cat:"Brake Pad",make:"Honda",model:"City 2009-21",desc:"Brake Pad (Front)",fit:["City 2009-21"]}];
+const OUTLETS=[["Karachi","🏛️","Shop No.13, Al Noor market Tibet Center, M.A.Jinnah Road, Karachi","10:00 AM - 07:00 PM"],["Lahore","🗼","Shop#84, Phase-2, Badami Bagh Center, Badami Bagh, Lahore.","10:00 AM - 07:00 PM"],["Peshawar","🏰","Shop No.23, Marwat Plaza, Shoba Bazar, Peshawar","09:00 AM - 06:00 PM"],["Quetta","🕌","Shop#02,St#02 Agha Sheer ALi Market Kabari Gali, Chandi Chowk","10:00 AM - 07:00 PM"],["Swat","🏔️","Shadra Chowk Madian Road, Mingora SWAT","09:00 AM - 06:00 PM"]];
+// TODO: replace the Facebook and LinkedIn links with NTC's real page links
+const OUT=[[67.0,24.86],[74.33,31.55],[71.57,34.01],[66.99,30.18],[72.36,34.78]];
+const BORDER=[[61.6,25.1],[62.3,25.1],[66.9,24.8],[67.4,24.0],[68.2,23.7],[70.0,24.3],[70.5,25.7],[70.0,26.9],[71.1,27.9],[72.9,29.0],[74.4,29.8],[74.9,31.0],[74.4,32.8],[75.0,33.3],[74.3,34.7],[75.5,35.5],[76.9,35.8],[75.0,37.0],[73.0,36.9],[71.5,36.8],[71.2,36.0],[71.0,35.0],[71.6,34.4],[70.9,33.9],[69.9,33.5],[69.5,31.9],[69.3,31.0],[68.0,31.7],[66.5,29.9],[65.0,29.5],[62.5,29.4],[61.7,29.8],[60.9,29.7],[61.5,27.2],[63.2,26.6],[62.8,25.2]];
+const SOC={wa:"https://wa.me/923179996180",fb:"https://www.facebook.com/",li:"https://www.linkedin.com/"};
+const L={en:{home:"Home",profile:"Profile",hist:"Order History",about:"About us",help:"Help & Support",lang:"Change Language",out:"Log Out",part:"Part No.",make:"Make",cat:"Category",search:"Search",cart:"My Cart",add:"Add to Cart",ord:"Place Order",empty:"No ongoing Orders"},
+ur:{home:"ہوم",profile:"پروفائل",hist:"آرڈر ہسٹری",about:"ہمارے بارے میں",help:"مدد اور سپورٹ",lang:"زبان تبدیل کریں",out:"لاگ آؤٹ",part:"پارٹ نمبر",make:"میک",cat:"کیٹیگری",search:"تلاش کریں",cart:"میری کارٹ",add:"کارٹ میں ڈالیں",ord:"آرڈر کریں",empty:"کوئی آرڈر نہیں"}};
+
+// ---------- State ----------
+const S={scr:"home",stack:[],tab:"part",q:"",menu:false,dlg:false,lang:"en",cart:[],orders:[],ot:"on",banner:0,sel:null,flt:{},qty:{},toast:""};
+const BAN=[["ASUKI","100% high quality brake shoe","linear-gradient(115deg,#a30018,#e0112b 60%,#c8102e)"],["Rubber Parts","Premium quality ULTIMA","linear-gradient(120deg,#7d0b12,#d8141f)"],["Brake Booster","ULTIMA Automotive","linear-gradient(120deg,#2b2b33,#8a1118)"],["Disc Brake Pads","ASUKI Brake Parts","linear-gradient(120deg,#b30f19,#f0434b)"],["Brake Fluid DOT 3","Heavy-duty brake fluid","linear-gradient(120deg,#5a0a10,#c9141d)"],["Price Down","On selected ASUKI products","linear-gradient(120deg,#c27a00,#d8141f)"],["Latest Additions","New parts added regularly","linear-gradient(120deg,#8a1118,#3d0a0e)"]];
+const t=k=>L[S.lang][k];
+const $=s=>document.querySelector(s);
+const pkr=n=>n.toLocaleString()+" PKR";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cartN=()=>S.cart.reduce((a,c)=>a+c.n,0);
+function go(s,o={}){S.stack.push(S.scr);S.scr=s;Object.assign(S,o);draw()}
+function back(){S.scr=S.stack.pop()||"home";draw()}
+function toast(m){S.toast=m;draw();setTimeout(()=>{S.toast="";draw()},1400)}
+function add(no,n){const c=S.cart.find(x=>x.no===no);c?c.n+=n:S.cart.push({no,n});toast("Added to cart")}
+const byNo=no=>P.find(p=>p.no===no);
+
+// ---------- Views ----------
+let lastScr="";const NARROW=["detail","cart","orders","profile","help"];
+function navTo(s){S.menu=false;S.stack=[];S.scr=s;draw()}
+function head(title){const root=S.scr==="home";const nv=[["home","Home"],["orders","Order History"],["profile","Profile"],["about","About us"],["help","Help & Support"]];
+return `<header class="${title?"hasT":""}">${root?`<button class="ib mn" aria-label="Menu" onclick="S.menu=true;draw()">☰</button>`:`<button class="ib" aria-label="Back" onclick="back()">←</button>`}
+<div class="logo" onclick="navTo('home')">NTC<small>AUTO PARTS</small></div>${title?`<div class="t">${title}</div>`:""}
+<nav class="nav" aria-label="Main">${nv.map(([s,l])=>`<button class="${S.scr===s?"on":""}" onclick="navTo('${s}')">${l}</button>`).join("")}</nav>
+<button class="lng" onclick="S.dlg=true;draw()" aria-label="Change language">${S.lang==="en"?"EN | اردو":"اردو | EN"}</button>
+<button class="ib" aria-label="Cart" onclick="go('cart')">🛒${cartN()?`<span class="badge">${cartN()}</span>`:""}</button></header>`}
+const dup=a=>[...a,...a,...a].map(p=>chip(p)).join("");
+const chip=p=>`<button class="chip" onclick="go('detail',{sel:'${p.no}'})"><div class="ph"><u>⚙</u><i>${esc(p.no)}</i></div><div><div class="pn">${esc(p.no)}</div><div class="br">${p.br}</div><div class="pr">${pkr(p.pr)}</div></div></button>`;
+function home(){
+let body=`<div class="slider" id="ban"><div class="trk" id="trk" style="transform:translateX(-${S.banner*100}%)">${BAN.map(b=>`<div class="sl" style="background:${b[2]}"><div><b>${b[0]}</b><small>${b[1]}</small></div></div>`).join("")}</div><button class="pv" aria-label="Previous banner" onclick="slide(S.banner-1)">‹</button><button class="nx" aria-label="Next banner" onclick="slide(S.banner+1)">›</button><div class="dots">${BAN.map((_,i)=>`<i class="${i===S.banner?"on":""}"></i>`).join("")}</div></div>
+<div class="pills"><span>✓ NTC Original</span><span>🏬 5 Outlets</span><span>🔧 Asuki · Ultima</span></div><h2>Recently Updated Parts &amp; Prices</h2><div class="hs">${dup(P.slice(0,5))}</div>
+<h2>Latest Additions</h2><div class="hs">${dup(P.slice(4))}</div>
+<div class="tabs" role="tablist">${[["part","part"],["make","make"],["cat","cat"]].map(([k,l])=>`<button class="${S.tab===k?"on":""}" onclick="S.tab='${k}';draw()">${t(l)}</button>`).join("")}</div>`;
+if(S.tab==="part")body+=`<div class="in">🔍<input id="q" placeholder="E.g A-73, A-99, UFM-1365" value="${esc(S.q)}" oninput="S.q=this.value;$('#res').innerHTML=partResults(this.value)" onkeydown="if(event.key==='Enter')searchPart()" autocomplete="off"></div><button class="btn" onclick="searchPart()">${t("search")}</button><div id="res" style="margin-top:12px">${partResults(S.q)}</div>`;
+if(S.tab==="make")body+=`<div class="in">🔍<input id="mq" placeholder="Search make/model" oninput="filterMakes(this.value)"></div><div class="grid" id="mk">${makeTiles("")}</div>`;
+if(S.tab==="cat")body+=`<div class="grid">${CATS.map(([c,e])=>`<button class="tile" onclick="go('list',{flt:{cat:'${c}'}})"><b>${e}</b>${c}</button>`).join("")}</div>`;
+return body}
+const makeTiles=q=>Object.keys(MAKES).filter(m=>m.toLowerCase().includes(q.toLowerCase())).map(m=>`<button class="tile" onclick="go('models',{flt:{make:'${m}'}})"><b>${m[0]}</b>${m}</button>`).join("")||`<div class="empty">No make found</div>`;
+function filterMakes(v){$("#mk").innerHTML=makeTiles(v)}
+function searchPart(){const q=S.q.trim().toLowerCase();if(!q)return toast("Enter a part number");go("list",{flt:{q}})}
+function modelCards(q){const m=S.flt.make;return MAKES[m].filter(n=>n.toLowerCase().includes(q.toLowerCase())).map(n=>`<button class="car" onclick="go('cats',{flt:{make:'${m}',model:'${n}'}})">${carSVG(MT[m+"|"+n],COL[m])}<span>${n}</span></button>`).join("")||`<div class="empty">No model found</div>`}
+function filterModels(v){$("#md").innerHTML=modelCards(v)}
+function models(){return `<h2>Select Model · ${S.flt.make}</h2><div class="in">🔍<input placeholder="Search model" oninput="filterModels(this.value)"></div><div class="grid2" id="md">${modelCards("")}</div>`}
+function cats(){return `<h2>Select Category</h2><div class="grid">${CATS.map(([c,e])=>`<button class="tile" onclick="go('list',{flt:{...S.flt,cat:'${c}'}})"><b>${e}</b>${c}</button>`).join("")}</div><br><button class="btn" onclick="go('list',{flt:{...S.flt}})">Skip</button>`}
+function list(){const f=S.flt;const r=P.filter(p=>(!f.make||p.make===f.make)&&(!f.model||p.model===f.model)&&(!f.cat||p.cat===f.cat)&&(!f.q||nz(p.no).includes(nz(f.q))));
+return `<h2>Products</h2><div class="plist">`+(r.map(p=>{const n=S.qty[p.no]||1;return `<div class="row"><div class="top"><div><button style="all:unset;cursor:pointer" onclick="go('detail',{sel:'${p.no}'})"><div class="pn">${esc(p.no)}</div></button><div class="br">${p.br}</div><div class="br">${p.model}</div><div class="br">${p.cat}</div></div><div class="pr">${pkr(p.pr)}</div></div>
+<div class="act"><div class="qty"><button aria-label="Less" onclick="S.qty['${p.no}']=Math.max(1,${n}-1);draw()">−</button><span>${n}</span><button aria-label="More" onclick="S.qty['${p.no}']=${n}+1;draw()">+</button></div><button class="sm" onclick="add('${p.no}',${n})">${t("add")}</button></div></div>`}).join("")||`<div class="empty">No products found. Try another part number.</div>`)+`</div>`}
+const nz=x=>String(x).toLowerCase().replace(/[^a-z0-9]/g,"");
+function partResults(q){const n=nz(q);if(!n)return"";const r=P.filter(p=>nz(p.no).includes(n));
+return r.length?r.map(p=>`<button class="row res" onclick="go('detail',{sel:'${p.no}'})"><span><span class="pn">${esc(p.no)}</span><br><span class="br">${p.br} · ${p.make} ${p.model}</span></span><span class="pr">${pkr(p.pr)}</span></button>`).join(""):`<div class="empty">No part found for “${esc(q)}”.</div>`}
+const baseUrl=()=>location.href.split("#")[0];
+const shareText=p=>`${p.no} (${p.br}) - ${pkr(p.pr)}\n${p.cat} · ${p.make} ${p.model}\nNTC Auto Parts\n${baseUrl()}#${nz(p.no)}`;
+const waLink=p=>"https://wa.me/?text="+encodeURIComponent(shareText(p));
+const waIcon=n=>`<svg width="${n}" height="${n}" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3zm4.6 12.4c-.2.6-1.1 1-1.6 1.1-.4 0-.9.2-3-.6-2.5-1.1-4.1-3.7-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.7.9-1.9c.2-.2.4-.3.6-.3h.5c.2 0 .3 0 .5.4l.7 1.7c.1.1.1.3 0 .4l-.3.5-.4.4c-.1.1-.2.3-.1.5.1.2.7 1.1 1.5 1.8 1 .9 1.8 1.2 2 1.3.2.1.4.1.5-.1l.7-.8c.1-.2.3-.2.5-.1l1.6.8c.2.1.3.2.4.3 0 .1 0 .6-.3 1z"/></svg>`;
+function openHash(){const h=nz(location.hash.slice(1));const p=h&&P.find(x=>nz(x.no)===h);if(p&&!(S.scr==="detail"&&S.sel===p.no)){S.stack=["home"];S.scr="detail";S.sel=p.no;draw()}}
+addEventListener("hashchange",openHash);
+const padSVG=()=>{const s=(y,l,x)=>`<g><path d="M62 ${y+4}q0-10 12-10h110q14 0 22 8l8 12q-4 8-14 10H74q-12 0-12-10z" fill="#8c8c8c" stroke="#555"/><line x1="130" y1="${y-6}" x2="130" y2="${y+24}" stroke="#555"/><text x="14" y="${y+10}" font-size="11" fill="#999">${l}</text><text x="226" y="${y+24}" font-size="11" fill="#777">${x}</text></g>`;return `<svg class="pad" viewBox="0 0 260 130" role="img" aria-label="Brake pad drawing">${s(14,"IL","X1")}${s(54,"IR","X1")}${s(94,"O","X2")}</svg>`};
+function detail(){const p=byNo(S.sel);const ttl=p.t||`${p.make} ${p.model}`.toUpperCase();
+return `<div class="upd">📅 Last Price Updated : 11-Nov-2026</div><h2>Order Screen</h2><div class="row dg" style="padding-bottom:52px"><div class="dl"><div class="phd"><div><i>${p.br.split(" ")[0]}</i><small>Brake Parts</small></div><div class="phr"><b>${esc(p.no)}</b><span>${esc(ttl)}</span></div></div>${padSVG()}</div><div class="dr"><div class="top" style="margin-top:10px"><div class="pn">${esc(p.no)}</div><div class="pr">${pkr(p.pr)}</div></div><div class="br" style="margin-top:8px">${p.desc.toUpperCase()}</div><div class="br"><b>${p.cat}, ${p.br}</b></div><ul class="fit">${p.fit.map(f=>`<li>◈ ${f}</li>`).join("")}</ul></div><div class="shr"><a class="wa" aria-label="Share ${esc(p.no)} on WhatsApp" href="${waLink(p)}" target="_blank" rel="noopener">${waIcon(24)}</a></div></div>`}
+const DISC_PCT=18,DISC_ON=false; // set DISC_ON=true to really apply the discount
+function cart(){if(!S.cart.length)return `<div class="empty">Your cart is empty.<br>Search a part and tap Add to Cart.</div>`;
+const sub=total(),dis=DISC_ON?Math.round(sub*DISC_PCT/100):0;
+return `<h2 class="inv">Checkout Invoice</h2><div class="cg"><div>${S.cart.map(c=>{const p=byNo(c.no);return `<div class="row ci"><div class="pn" style="font-size:18px">${esc(p.no)}</div><div class="cl"><span>${p.cat}</span><span class="pr">${p.pr.toLocaleString()} * ${c.n}</span><button class="rm" aria-label="Remove ${esc(p.no)} from cart" onclick="S.cart=S.cart.filter(x=>x.no!=='${p.no}');draw()">🗑 Remove</button></div><div class="cl2"><span class="br">Quantity : <button class="qb" aria-label="Less" onclick="chg('${p.no}',-1)">−</button> ${c.n} <button class="qb" aria-label="More" onclick="chg('${p.no}',1)">+</button></span><span>${pkr(p.pr*c.n)}</span></div></div>`}).join("")}</div><div class="row pay"><h3>Payment Detail</h3><div class="pl2"><span>Item total</span><span>${pkr(sub)}</span></div><div class="pl2"><span>Discount (${DISC_PCT}%)</span><span>${pkr(dis)}</span></div><div class="pl2 gt"><b>Grand Total</b><b>${pkr(sub-dis)}</b></div><button class="btn" onclick="placeOrder()">${t("ord")}</button></div></div>`}
+function chg(no,d){const c=S.cart.find(x=>x.no===no);c.n+=d;if(c.n<1)S.cart=S.cart.filter(x=>x!==c);draw()}
+const total=()=>S.cart.reduce((a,c)=>a+byNo(c.no).pr*c.n,0);
+function placeOrder(){S.orders.unshift({id:1000+S.orders.length+1,items:[...S.cart],total:total(),date:new Date().toLocaleDateString()});S.cart=[];S.ot="on";S.stack=["home"];S.scr="orders";draw();toast("Order placed")}
+function orders(){const past=S.ot==="past";return `<div class="ot"><button class="${!past?"on":""}" onclick="S.ot='on';draw()">Ongoing Orders</button><button class="${past?"on":""}" onclick="S.ot='past';draw()">Past Orders</button></div>`+
+(past?`<div class="empty">No past orders yet.</div>`:S.orders.map(o=>`<div class="row"><div class="top"><b>Order #${o.id}</b><span class="pr">${pkr(o.total)}</span></div><div class="br">${o.date} · ${o.items.length} item(s)</div>${o.items.map(i=>`<div>${esc(i.no)} × ${i.n}</div>`).join("")}</div>`).join("")||`<div class="empty">${t("empty")}</div>`)}
+function profile(){return `<div class="out" style="text-align:left"><div style="font-size:18px;font-weight:800">ZAYN AWAN</div><small>Total Orders : ${S.orders.length}</small></div>
+<div class="row"><div class="top"><span class="br">Company</span><button class="sm">Update Company</button></div><div class="top" style="margin-top:12px"><span class="br">City</span><b>Karachi</b></div><div class="top" style="margin-top:12px"><span class="br">Phone</span><b>0331 2588269</b></div></div>`}
+const contact=()=>`<div class="cr">✉ <a href="mailto:info@ntc-autoparts.com">info@ntc-autoparts.com</a></div><div class="cr">📠 <a href="tel:+922135393061">021-35393061-62</a></div><div class="cr">📞 <a href="tel:+923179996180">+92 317 9996180</a></div><div class="cr">🌐 <a href="https://ntc-autoparts.com" target="_blank" rel="noopener">ntc-autoparts.com</a></div>`;
+const xy=([lo,la])=>[Math.round((lo-60)*20),Math.round((38-la)*19)];
+const mapSVG=()=>`<svg class="pkmap" viewBox="0 0 360 290" role="group" aria-label="Outlet locations in Pakistan"><path d="M${BORDER.map(xy).join("L")}Z" fill="var(--tint)" stroke="var(--red)" stroke-width="2" stroke-linejoin="round"/>${OUTLETS.map((o,i)=>{const[x,y]=xy(OUT[i]);return `<g class="pin" tabindex="0" role="button" aria-label="${o[0]} outlet" onclick="pinTo(${i})" onkeydown="if(event.key==='Enter')pinTo(${i})"><circle class="pr1" cx="${x}" cy="${y}" r="8"/><circle cx="${x}" cy="${y}" r="5" fill="var(--red)" stroke="#fff" stroke-width="2"/><text x="${x+9}" y="${y+4}" font-size="11" font-weight="700" fill="var(--ink)">${o[0]}</text></g>`}).join("")}</svg>`;
+function pinTo(i){const e=document.getElementById("o"+i);e.scrollIntoView({behavior:RM?"auto":"smooth",block:"center"});e.classList.add("hl");setTimeout(()=>e.classList.remove("hl"),1600)}
+function about(){return `<div class="abt"><div class="row" style="border-color:var(--red)"><b style="font-size:17px">NTC Autoparts</b>${contact()}</div><div class="row">${mapSVG()}</div></div><div class="ogrid">`+OUTLETS.map(([c,i,a,h],k)=>`<div class="out" id="o${k}"><div class="oi">${i}</div><b style="display:block;margin:8px 0">${c.toUpperCase()} OUTLET</b>${a}<small style="display:block;margin-top:10px">${h}</small><a class="mapb" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("NTC Auto Parts, "+a+", Pakistan")}" target="_blank" rel="noopener">📍 Open in Maps</a></div>`).join("")+`</div>`+`<div class="row" style="border-color:var(--red);margin-top:18px"><b>Follow us on Social Media:</b><div class="soc"><a href="${SOC.wa}" target="_blank" rel="noopener" aria-label="WhatsApp" style="background:#25d366"><svg width="28" height="28" viewBox="0 0 24 24"><path fill="#fff" d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3zm4.6 12.4c-.2.6-1.1 1-1.6 1.1-.4 0-.9.2-3-.6-2.5-1.1-4.1-3.7-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.7.9-1.9c.2-.2.4-.3.6-.3h.5c.2 0 .3 0 .5.4l.7 1.7c.1.1.1.3 0 .4l-.3.5-.4.4c-.1.1-.2.3-.1.5.1.2.7 1.1 1.5 1.8 1 .9 1.8 1.2 2 1.3.2.1.4.1.5-.1l.7-.8c.1-.2.3-.2.5-.1l1.6.8c.2.1.3.2.4.3 0 .1 0 .6-.3 1z"/></svg></a><a href="${SOC.fb}" target="_blank" rel="noopener" aria-label="Facebook" style="background:#3b5998;font-size:26px">f</a><a href="${SOC.li}" target="_blank" rel="noopener" aria-label="LinkedIn" style="background:#0a78b5">in</a></div></div><div class="dev">Developed by <b>VIION</b></div>`}
+function help(){return `<div class="row" style="border-color:var(--red)"><b style="font-size:17px">NTC Autoparts</b>${contact()}</div><button class="dang" onclick="S.del=true;draw()">🗑 Delete My Account</button>`}
+function delDlg(){return `<div class="scrim" style="z-index:6" onclick="S.del=false;draw()"></div><div class="dlg" role="dialog"><h3>Delete your account?</h3><p class="br" style="margin:8px 0">This sends a deletion request to NTC support and clears your orders.</p><button onclick="S.del=false;draw()">Cancel</button><button style="color:var(--red);font-weight:700" onclick="S.del=false;S.cart=[];S.orders=[];draw();toast('Deletion request sent')">Delete</button></div>`}
+function drawer(){const it=[["home","home"],["profile","profile"],["orders","hist"],["about","about"],["help","help"]];
+return `<div class="scrim" onclick="S.menu=false;draw()"></div><nav class="drawer" aria-label="Main menu"><span class="ver">APP V1.0.50</span><div class="me">ZAYN AWAN</div>
+${it.map(([s,l])=>`<button class="mi ${S.scr===s?"on":""}" onclick="S.menu=false;S.stack=[];S.scr='${s}';draw()">${t(l)}<span>›</span></button>`).join("")}
+<button class="mi" onclick="S.dlg=true;draw()">${t("lang")}<span class="br">${S.lang==="en"?"English":"اردو"}</span></button>
+<button class="mi out" onclick="S.menu=false;S.cart=[];toast('Logged out')">${t("out")}<span>›</span></button></nav>`}
+function dlg(){return `<div class="scrim" style="z-index:6" onclick="S.dlg=false;draw()"></div><div class="dlg" role="dialog"><h3>Change Language</h3><button onclick="setLang('en')">English</button><button onclick="setLang('ur')">اردو پاکستان</button></div>`}
+function setLang(l){S.lang=l;S.dlg=false;S.menu=false;draw()}
+
+// ---------- Slider: autoplay, swipe, arrows ----------
+function slide(i){const n=BAN.length;S.banner=(i+n)%n;const t=$("#trk");if(t)t.style.transform=`translateX(-${S.banner*100}%)`;document.querySelectorAll(".dots i").forEach((d,k)=>d.classList.toggle("on",k===S.banner))}
+setInterval(()=>{if(S.scr==="home"&&!S.menu&&!S.dlg&&!S.hold&&!S.boot&&$("#trk"))slide(S.banner+1)},3500);
+let sx=null;
+document.addEventListener("pointerdown",e=>{const b=e.target.closest&&e.target.closest("#ban");sx=b?e.clientX:null;S.hold=!!b});
+document.addEventListener("pointerup",e=>{if(sx!==null){const dx=e.clientX-sx;if(Math.abs(dx)>40)slide(S.banner+(dx<0?1:-1))}sx=null;S.hold=false});
+document.addEventListener("pointercancel",()=>{sx=null;S.hold=false});
+// ---------- Part lists: autoplay + mouse drag ----------
+document.addEventListener("pointerdown",()=>{S.last=Date.now()});
+let dr=null;
+document.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")return;const h=e.target.closest&&e.target.closest(".hs");dr=h?{h,x:e.clientX,l:h.scrollLeft}:null});
+document.addEventListener("pointermove",e=>{if(dr)dr.h.scrollLeft=dr.l-(e.clientX-dr.x)});
+document.addEventListener("pointerup",()=>{dr=null});
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function hsStep(el){const f=el.firstElementChild;if(!f)return;const w=f.offsetWidth+10,set=(el.scrollWidth+10)/3;if(el.scrollLeft>=set)el.scrollLeft-=set;el.scrollBy({left:w,behavior:RM?"auto":"smooth"})}
+setInterval(()=>{if(S.scr==="home"&&!S.menu&&!S.dlg&&!S.boot&&Date.now()-(S.last||0)>3500)document.querySelectorAll(".hs").forEach(e=>{if(!e.matches(":hover"))hsStep(e)})},2200);
+// ---------- Render ----------
+const T={home:["",home],models:["Select Model",models],cats:["Select Category",cats],list:["Products",list],detail:["Order",detail],cart:["Checkout Invoice",cart],orders:["Order History",orders],profile:["Profile",profile],about:["About us",about],help:["Help & Support",help]};
+function draw(){const a=document.activeElement,id=a&&a.id,pos=a&&a.selectionStart;
+const [title,fn]=T[S.scr];const sc=$("main")?.scrollTop||0;
+const bar=S.scr==="detail"?`<div class="bar"><div class="qty"><button aria-label="Less" onclick="S.qty[S.sel]=Math.max(1,(S.qty[S.sel]||1)-1);draw()">−</button><span>${S.qty[S.sel]||1}</span><button aria-label="More" onclick="S.qty[S.sel]=(S.qty[S.sel]||1)+1;draw()">+</button></div><button class="btn" onclick="add(S.sel,S.qty[S.sel]||1)">Add to Order</button></div>`:"";
+$("#app").innerHTML=head(title)+`<main class="${S.scr!==lastScr?"pg":""}" dir="${S.lang==="ur"?"rtl":"ltr"}"><div class="wrap ${NARROW.includes(S.scr)?"n":""}">${fn()}</div></main>`+bar+(S.menu?drawer():"")+(S.dlg?dlg():"")+(S.del?delDlg():"")+(S.toast?`<div class="toast" role="status">${S.toast}</div>`:"");
+const nw=S.scr!==lastScr;$("main").scrollTop=nw?0:sc;if(nw)document.querySelectorAll("main :is(.tile,.car,.row,.out,.chip)").forEach((e,i)=>e.style.animationDelay=Math.min(i,14)*35+"ms");lastScr=S.scr;if(id){const e=document.getElementById(id);if(e){e.focus();try{e.setSelectionRange(pos,pos)}catch(_){}}}}
+draw();openHash();
+// ---------- Open sequence: splash (2.6s) -> ad (5s, skippable) -> app ----------
+(()=>{const b=$("#boot"),bs=$("#bs"),ba=$("#ba"),sk=$("#skip");S.boot=true;let done=false,iv;
+const end=()=>{if(done)return;done=true;clearInterval(iv);S.boot=false;b.classList.add("out");setTimeout(()=>b.remove(),600)};
+setTimeout(()=>{bs.classList.add("gone");ba.hidden=false;let n=5;sk.textContent="Skip "+n;$("#pbi").style.animation="fill 5s linear forwards";
+iv=setInterval(()=>{n--;if(n<=0)end();else sk.textContent="Skip "+n},1000);sk.onclick=end},2600)})();
+</script>
+<script>
+// ---- PWA: offline cache + install prompt ----
+if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+(()=>{let ev=null;const bar=document.createElement("div");
+bar.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:20;background:#d8141f;color:#fff;border-radius:14px;padding:12px 14px;display:none;align-items:center;gap:10px;font:14px sans-serif;max-width:406px;margin:auto";
+const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+const show=(html,btn)=>{if(standalone||sessionStorage.getItem("hideInstall"))return;bar.innerHTML=`<span style="flex:1">${html}</span>${btn?'<button id="ib" style="background:#fff;color:#d8141f;border:0;border-radius:10px;padding:8px 14px;font-weight:700">Install</button>':""}<button id="ix" aria-label="Close" style="background:none;border:0;color:#fff;font-size:20px">✕</button>`;bar.style.display="flex";
+bar.querySelector("#ix").onclick=()=>{bar.style.display="none";try{sessionStorage.setItem("hideInstall","1")}catch(e){}};
+const b=bar.querySelector("#ib");if(b)b.onclick=async()=>{ev.prompt();await ev.userChoice;ev=null;bar.style.display="none"}};
+document.body.appendChild(bar);
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();ev=e;show("Install NTC Auto Parts on your phone",true)});
+addEventListener("appinstalled",()=>{bar.style.display="none"});
+if(/iphone|ipad|ipod/i.test(navigator.userAgent))show("To install: tap Share, then Add to Home Screen",false);
+})();
+</script>
+</body>
+</html>
